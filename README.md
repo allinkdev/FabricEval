@@ -1,9 +1,21 @@
 # FabricEval
+
 Runs shell commands from Minecraft, as if it were a terminal emulator!
 
 Works only on Windows because I'm lazy.
 
-## Example Usage
+## Usage
+
+Details on how to use ``/eval`` in-game.
+
+### Stop evaluation
+
 ```
-/eval echo Hello world!
+/eval stop
+```
+
+### Evaluate command
+
+```
+/eval execute <command>
 ```
