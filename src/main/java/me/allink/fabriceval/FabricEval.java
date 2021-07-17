@@ -1,7 +1,7 @@
 package me.allink.fabriceval;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import me.allink.fabriceval.commands.EvalCommand;
 import net.fabricmc.api.Environment;
@@ -18,21 +18,26 @@ public class FabricEval implements ModInitializer {
     public void onInitialize() {
         CommandDispatcher<FabricClientCommandSource> dispatcher = ClientCommandManager.DISPATCHER;
 
+
         LiteralCommandNode<FabricClientCommandSource> evaluateRoot = ClientCommandManager
                 .literal("eval")
                 .build();
 
         LiteralCommandNode<FabricClientCommandSource> executeNode = ClientCommandManager
                 .literal("execute")
-                .executes(new EvalCommand())
-                .then(ClientCommandManager.argument("command", MessageArgumentType.message()))
-                .executes(EvalCommand::eval)
                 .build();
+
+        ArgumentCommandNode<FabricClientCommandSource, MessageArgumentType.MessageFormat> commandArgument = ClientCommandManager.argument("command", MessageArgumentType.message())
+                .then((ClientCommandManager.argument("command", MessageArgumentType.message())))
+                .build();
+
+        executeNode.addChild(commandArgument);
 
         LiteralCommandNode<FabricClientCommandSource> stopNode = ClientCommandManager
                 .literal("stop")
                 .executes(EvalCommand::stop)
                 .build();
+
 
         evaluateRoot.addChild(executeNode);
         evaluateRoot.addChild(stopNode);
