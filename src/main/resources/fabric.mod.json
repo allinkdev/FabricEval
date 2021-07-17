@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "fabriceval",
+  "version": "${version}",
+  "name": "Fabric Eval",
+  "description": "Runs shell commands from Minecraft, as if it were a terminal emulator!",
+  "authors": [
+    "Allink"
+  ],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/fabriceval/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.allink.fabriceval.client.FabricEvalClient"
+    ],
+    "main": [
+      "me.allink.fabriceval.FabricEval"
+    ]
+  },
+  "mixins": [
+    "FabricEval.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.6",
+    "fabric": "*",
+    "minecraft": "1.17.1"
+  }
+}
