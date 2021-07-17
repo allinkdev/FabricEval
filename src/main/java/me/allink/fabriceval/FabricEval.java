@@ -24,14 +24,10 @@ public class FabricEval implements ModInitializer {
 
         LiteralCommandNode<FabricClientCommandSource> executeNode = ClientCommandManager
                 .literal("execute")
-                .build();
-
-        LiteralCommandNode<FabricClientCommandSource> commandArgument = executeNode.createBuilder()
+                .executes(new EvalCommand())
                 .then(ClientCommandManager.argument("command", MessageArgumentType.message()))
                 .executes(EvalCommand::eval)
                 .build();
-
-        executeNode.addChild(commandArgument);
 
         LiteralCommandNode<FabricClientCommandSource> stopNode = ClientCommandManager
                 .literal("stop")
