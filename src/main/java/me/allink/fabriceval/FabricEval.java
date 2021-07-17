@@ -36,7 +36,7 @@ public class FabricEval implements ModInitializer {
 
     public static void killMessageTimerTask() {
         EvalCommand.lines = new ArrayList<>();
-        timer.purge();
+        timer.cancel();
         createMessageTimerTask();
     }
 
