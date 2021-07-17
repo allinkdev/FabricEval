@@ -29,7 +29,9 @@ public class EvalThread extends Thread {
                     line = null;
                     return;
                 }
-                EvalCommand.lines.add(line);
+                if(!line.isBlank() && !line.isBlank()) {
+                    EvalCommand.lines.add(line);
+                }
                 System.out.println(line);
             }
         } catch (Exception e) {
