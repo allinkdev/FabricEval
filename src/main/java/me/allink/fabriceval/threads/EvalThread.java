@@ -5,11 +5,10 @@ import me.allink.fabriceval.commands.EvalCommand;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EvalThread extends Thread {
-    private String shellCommand;
+    private final String shellCommand;
     AtomicBoolean interrupted = new AtomicBoolean(false);
 
     public EvalThread(String shellCommand) {
@@ -24,12 +23,12 @@ public class EvalThread extends Thread {
 
             String line;
             while((line = inputReader.readLine()) != null) {
-                if(interrupted.get()) {
+                if (interrupted.get()) {
                     process.destroyForcibly();
                     line = null;
                     return;
                 }
-                if(!line.isBlank() && !line.isBlank()) {
+                if (!line.isEmpty() && !line.isBlank()) {
                     EvalCommand.lines.add(line);
                 }
                 System.out.println(line);
