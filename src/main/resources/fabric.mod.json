@@ -12,9 +12,6 @@
   "icon": "assets/fabriceval/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": [
-      "me.allink.fabriceval.client.FabricEvalClient"
-    ],
     "main": [
       "me.allink.fabriceval.FabricEval"
     ]
