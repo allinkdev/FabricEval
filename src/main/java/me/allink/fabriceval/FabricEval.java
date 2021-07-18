@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import me.allink.fabriceval.commands.EvalCommand;
+import me.allink.fabriceval.threads.EvalThread;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
@@ -11,6 +12,7 @@ import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.command.argument.MessageArgumentType;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,10 +26,10 @@ public class FabricEval implements ModInitializer {
         FabricEval.timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if(EvalCommand.lines.size() > 0) {
+                if (lines.size() > 0) {
                     try {
-                        EvalCommand.client.player.sendChatMessage(EvalCommand.lines.get(0));
-                        EvalCommand.lines.remove(0);
+                        EvalCommand.client.player.sendChatMessage(lines.get(0));
+                        lines.remove(0);
                     } catch (Exception e) {
                         // Ignored
                     }
@@ -37,9 +39,14 @@ public class FabricEval implements ModInitializer {
     }
 
     public static void killMessageTimerTask() {
-        EvalCommand.lines = new ArrayList<>();
+        clearArray();
         timer.cancel();
-        taskExists = false;
+        createMessageTimerTask();
+    }
+
+    public static void clearArray() {
+        lines.clear();
+        lines = new ArrayList<>();
     }
 
     @Override

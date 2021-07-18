@@ -11,17 +11,14 @@ import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EvalCommand implements Command<FabricClientCommandSource> {
     public static MinecraftClient client = MinecraftClient.getInstance();
-    public static List<String> lines = new ArrayList<>();
-    public static List<EvalThread> threads = new ArrayList<>();
 
     public static int eval(CommandContext<FabricClientCommandSource> context) throws CommandSyntaxException {
         String shellCommand = context.getArgument("command", MessageArgumentType.MessageFormat.class).getContents();
         EvalThread evalThread = new EvalThread(shellCommand);
-        threads.add(evalThread);
+        FabricEval.threads.add(evalThread);
         evalThread.start();
         return 1;
     }
@@ -34,8 +31,8 @@ public class EvalCommand implements Command<FabricClientCommandSource> {
     }
 
     public static int stop(CommandContext<FabricClientCommandSource> context) throws CommandSyntaxException {
-        EvalCommand.lines = new ArrayList<>();
-        for(EvalThread thread: threads) {
+        FabricEval.lines = new ArrayList<>();
+        for (EvalThread thread : FabricEval.threads) {
             thread.interrupt();
         }
         context.getSource().sendFeedback(Text.of("Stopped evaluation."));
@@ -43,4 +40,5 @@ public class EvalCommand implements Command<FabricClientCommandSource> {
         FabricEval.killMessageTimerTask();
         return 1;
     }
+
 }

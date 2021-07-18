@@ -1,6 +1,6 @@
 package me.allink.fabriceval.threads;
 
-import me.allink.fabriceval.commands.EvalCommand;
+import me.allink.fabriceval.FabricEval;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,7 +29,7 @@ public class EvalThread extends Thread {
                     return;
                 }
                 if (!line.isEmpty() && !line.isBlank()) {
-                    EvalCommand.lines.add(line);
+                    FabricEval.lines.add(line);
                 }
                 System.out.println(line);
             }
