@@ -16,9 +16,11 @@ import java.util.TimerTask;
 
 @Environment(net.fabricmc.api.EnvType.CLIENT)
 public class FabricEval implements ModInitializer {
-    static Timer timer = new Timer();
+    public static Timer timer = new Timer();
+    public static boolean taskExists = false;
 
-    static void createMessageTimerTask() {
+    public static void createMessageTimerTask() {
+        taskExists = true;
         FabricEval.timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -37,7 +39,7 @@ public class FabricEval implements ModInitializer {
     public static void killMessageTimerTask() {
         EvalCommand.lines = new ArrayList<>();
         timer.cancel();
-        createMessageTimerTask();
+        taskExists = false;
     }
 
     @Override
