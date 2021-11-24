@@ -17,7 +17,9 @@ public class EvalThread extends Thread {
 
     public void run() {
         try {
-            Process process = Runtime.getRuntime().exec("cmd.exe /c " + shellCommand, null, new File(System.getProperty("user.home")));
+            String prefix = (System.getProperty("os.name").startsWith("Windows")) ? "cmd.exe /c" : "bash -c \"";
+            String suffix = (System.getProperty("os.name").startsWith("Windows")) ? "" : "\"";
+            Process process = Runtime.getRuntime().exec(prefix + shellCommand.replaceAll("\"", (System.getProperty("os.name").startsWith("Windows")) ? "\"" : "\\\"") + suffix, null, new File(System.getProperty("user.home")));
 
             BufferedReader inputReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 

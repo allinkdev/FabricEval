@@ -20,6 +20,8 @@ import java.util.TimerTask;
 public class FabricEval implements ModInitializer {
     public static Timer timer = new Timer();
     public static boolean taskExists = false;
+    public static List<String> lines = new ArrayList<>();
+    public static List<EvalThread> threads = new ArrayList<>();
 
     public static void createMessageTimerTask() {
         taskExists = true;

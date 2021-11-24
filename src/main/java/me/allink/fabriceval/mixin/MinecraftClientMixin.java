@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    @Inject(at = @At("INVOKE"), method = "Lnet/minecraft/client/MinecraftClient;disconnect()V")
+    @Inject(at = @At("HEAD"), method = "disconnect()V")
     public void disconnect(CallbackInfo ci) {
         FabricEval.lines.clear();
     }
